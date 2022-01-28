@@ -14,7 +14,7 @@ import {
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 
-import { useFormixContext } from '@euk-labs/formix/hooks';
+import { useFormixContext } from '@euk-labs/formix';
 
 export interface ISwitchOption {
   name: string;

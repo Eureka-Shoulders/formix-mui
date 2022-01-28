@@ -1,20 +1,9 @@
-import {
-  Autocomplete,
-  AutocompleteProps,
-  AutocompleteRenderOptionState,
-  Checkbox,
-  CircularProgress,
-  FilterOptionsState,
-  TextField,
-  TextFieldProps,
-  createFilterOptions,
-} from '@mui/material';
+import { AutocompleteProps, TextFieldProps } from '@mui/material';
 import { observer } from 'mobx-react-lite';
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 
-import { useField } from '@euk-labs/formix/hooks';
-
-const filter = createFilterOptions();
+import { useField } from '@euk-labs/formix';
+import { Autocomplete } from '@euk-labs/componentz';
 
 export type InternalAutocompleteProps = {
   name: string;
@@ -30,16 +19,6 @@ export type InternalAutocompleteProps = {
   'renderInput'
 >;
 
-const defaultFilterOptions =
-  (buildNew: InternalAutocompleteProps['buildNew']) =>
-  (options: any[], state: FilterOptionsState<any>) => {
-    const filtered = filter(options, state);
-    if (!!buildNew && state.inputValue !== '') {
-      filtered.push(buildNew(state.inputValue));
-    }
-    return filtered;
-  };
-
 const FXAutocomplete = ({
   name,
   label,
@@ -51,8 +30,7 @@ const FXAutocomplete = ({
   onDebouncedInputChange,
   ...props
 }: InternalAutocompleteProps) => {
-  const { field, meta, helpers } = useField(name);
-  const [inputValue, setInputValue] = useState('');
+  const { helpers } = useField(name);
 
   const setFieldValue = (
     e: React.SyntheticEvent<Element, Event>,
@@ -61,71 +39,19 @@ const FXAutocomplete = ({
     helpers.setValue(value);
   };
 
-  useEffect(() => {
-    if (!debounce) {
-      return () => null;
-    }
-
-    const loadOptionsTimeout = setTimeout(() => {
-      if (onDebouncedInputChange) {
-        onDebouncedInputChange(inputValue);
-      }
-    }, debounce);
-
-    return () => {
-      clearTimeout(loadOptionsTimeout);
-    };
-  }, [inputValue]);
-
-  const withCheckboxOptionRenderer = useCallback(
-    (
-      params: React.HTMLAttributes<HTMLLIElement>,
-      option: any,
-      state: AutocompleteRenderOptionState
-    ) => (
-      <li {...params}>
-        <Checkbox
-          color="primary"
-          style={{ marginRight: 8 }}
-          checked={state.selected}
-        />
-        {(props?.getOptionLabel ?? ((option) => option))(option)}
-      </li>
-    ),
-    []
-  );
-
   return (
     <Autocomplete
-      {...field}
       {...props}
       options={options}
-      fullWidth
-      filterOptions={props.filterOptions || defaultFilterOptions(buildNew)}
-      loading={props.loading}
+      label={label}
+      textFieldProps={{
+        ...textFieldProps,
+      }}
+      checkbox={checkbox}
       onChange={setFieldValue}
-      onInputChange={(e, value) => setInputValue(value)}
-      renderOption={checkbox ? withCheckboxOptionRenderer : undefined}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          {...textFieldProps}
-          label={label}
-          error={meta.touched && !!meta.error}
-          helperText={meta.touched && meta.error}
-          InputProps={{
-            ...params.InputProps,
-            endAdornment: (
-              <React.Fragment>
-                {props.loading ? (
-                  <CircularProgress color="inherit" size={20} />
-                ) : null}
-                {params.InputProps.endAdornment}
-              </React.Fragment>
-            ),
-          }}
-        />
-      )}
+      buildNew={buildNew}
+      debounce={debounce}
+      onDebouncedInputChange={onDebouncedInputChange}
     />
   );
 };

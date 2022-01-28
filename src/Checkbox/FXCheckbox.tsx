@@ -1,23 +1,19 @@
 import {
-  Checkbox,
   CheckboxProps,
-  FormControl,
-  FormControlLabel,
   FormControlLabelProps,
   FormControlProps,
-  FormGroup,
   FormGroupProps,
-  FormHelperText,
 } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 
-import { useField } from '@euk-labs/formix/hooks';
+import { useField } from '@euk-labs/formix';
+import { Checkbox } from '@euk-labs/componentz';
 
 export type FXCheckboxProps = {
   name: string;
   label?: string;
-  formControlLabelProps?: FormControlLabelProps;
+  formControlLabelProps?: Omit<FormControlLabelProps, 'control' | 'label'>;
   formGroupProps?: FormGroupProps;
   formControlProps?: FormControlProps;
 } & CheckboxProps;
@@ -38,31 +34,19 @@ const FXCheckbox = ({
   ) => {
     helpers.setValue(checked);
   };
-  if (label) {
-    return (
-      <FormControl {...formControlProps} error={meta.touched && !!meta.error}>
-        <FormGroup {...formGroupProps}>
-          <FormControlLabel
-            {...formControlLabelProps}
-            control={
-              <Checkbox
-                {...props}
-                checked={field.value === true}
-                onChange={setFieldValue}
-              />
-            }
-            label={label}
-          />
-        </FormGroup>
-        {meta.touched && meta.error && (
-          <FormHelperText>{meta.error}</FormHelperText>
-        )}
-      </FormControl>
-    );
-  }
+
   return (
     <Checkbox
       {...props}
+      label={label}
+      formControlProps={{
+        error: meta.touched && !!meta.error,
+        ...formControlProps,
+      }}
+      formGroupProps={{ ...formGroupProps }}
+      formControlLabelProps={{
+        ...formControlLabelProps,
+      }}
       checked={field.value === true}
       onChange={setFieldValue}
     />

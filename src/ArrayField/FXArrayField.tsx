@@ -1,23 +1,15 @@
-import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {
-  Button,
-  Divider,
-  FormHelperText,
-  Grid,
-  IconButton,
-  Typography,
-} from '@mui/material';
+import { Divider, Grid, IconButton, Typography } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import { Fragment } from 'react';
 
-import { useArrayField } from '@euk-labs/formix/hooks';
+import { useArrayField } from '@euk-labs/formix';
 
 export type FieldsOptions = {
   name: string;
   label: string;
   gridSize: number;
-  component: () => React.ReactElement;
+  component: (props: any) => React.ReactElement;
   componentProps?: any;
 };
 
@@ -45,8 +37,8 @@ const FXArrayField = ({
 
   return (
     <Grid container spacing={spacing || 2}>
-      {values.map((_address, index) => (
-        <Fragment key={`address-${index}`}>
+      {values.map((_, index) => (
+        <Fragment key={`${name}-${index}`}>
           <Grid item xs={12} display="flex" alignItems="center" gap={2}>
             <Typography variant="body1" fontWeight="bold">
               {label} {index + 1}
@@ -57,9 +49,9 @@ const FXArrayField = ({
             </IconButton>
           </Grid>
 
-          {fields.map((field) => (
+          {fields.map((field, index) => (
             <>
-              <Grid item xs={field.gridSize}>
+              <Grid item xs={field.gridSize} key={`${name}-field-${index}`}>
                 <field.component
                   {...field.componentProps}
                   name={`${name}.${index}.${field.name}`}

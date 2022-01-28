@@ -1,18 +1,13 @@
 import {
-  FormControl,
-  FormControlLabel,
   FormControlLabelProps,
   FormControlProps,
-  FormGroup,
   FormGroupProps,
-  FormHelperText,
-  Switch,
   SwitchProps,
 } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-
-import { useField } from '@euk-labs/formix/hooks';
+import { Switch } from '@euk-labs/componentz';
+import { useField } from '@euk-labs/formix';
 
 export type FXSwitchProps = {
   name: string;
@@ -20,7 +15,7 @@ export type FXSwitchProps = {
   formControlLabelProps?: FormControlLabelProps;
   formGroupProps?: FormGroupProps;
   formControlProps?: FormControlProps;
-  SwitchComponent?: any;
+  SwitchComponent?: (props: SwitchProps) => React.ReactElement;
 } & SwitchProps;
 
 const FXSwitch = ({
@@ -41,41 +36,20 @@ const FXSwitch = ({
     helpers.setValue(checked);
   };
 
-  if (label) {
-    return (
-      <FormControl {...formControlProps} error={meta.touched && !!meta.error}>
-        <FormGroup {...formGroupProps}>
-          <FormControlLabel
-            {...formControlLabelProps}
-            control={
-              SwitchComponent ? (
-                <SwitchComponent
-                  {...props}
-                  checked={field.value === true}
-                  onChange={setFieldValue}
-                />
-              ) : (
-                <Switch
-                  {...props}
-                  checked={field.value === true}
-                  onChange={setFieldValue}
-                />
-              )
-            }
-            label={label}
-          />
-        </FormGroup>
-        {meta.touched && meta.error && (
-          <FormHelperText>{meta.error}</FormHelperText>
-        )}
-      </FormControl>
-    );
-  }
   return (
     <Switch
       {...props}
+      label={label}
       checked={field.value === true}
       onChange={setFieldValue}
+      formControlProps={{
+        ...formControlProps,
+        error: meta.touched && !!meta.error,
+      }}
+      formGroupProps={formGroupProps}
+      formControlLabelProps={formControlLabelProps}
+      helperText={meta.touched && meta.error}
+      SwitchComponent={SwitchComponent}
     />
   );
 };

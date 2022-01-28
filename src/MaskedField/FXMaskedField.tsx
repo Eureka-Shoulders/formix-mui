@@ -1,8 +1,9 @@
-import { TextField, TextFieldProps } from '@mui/material';
+import { TextFieldProps } from '@mui/material';
 import { observer } from 'mobx-react-lite';
-import InputMask, { Props as InputMaskProps } from 'react-input-mask';
+import { Props as InputMaskProps } from 'react-input-mask';
 
-import { useField } from '@euk-labs/formix/hooks';
+import { useField } from '@euk-labs/formix';
+import { MaskedField } from '@euk-labs/componentz';
 
 export type FXMaskedFieldProps = {
   name: string;
@@ -29,24 +30,20 @@ const FXMaskedField = ({
   };
 
   return (
-    <InputMask
-      mask={mask}
-      maskPlaceholder={maskPlaceholder}
+    <MaskedField
       {...props}
       {...field}
+      mask={mask}
+      maskPlaceholder={maskPlaceholder}
+      label={label}
       value={field.value as string}
       onChange={setValueOnField}
-    >
-      {() => (
-        <TextField
-          {...textFieldProps}
-          label={label}
-          fullWidth
-          error={meta.touched && !!meta.error}
-          helperText={meta.touched && meta.error}
-        />
-      )}
-    </InputMask>
+      textFieldProps={{
+        ...textFieldProps,
+        error: meta.touched && !!meta.error,
+        helperText: meta.touched && meta.error,
+      }}
+    />
   );
 };
 

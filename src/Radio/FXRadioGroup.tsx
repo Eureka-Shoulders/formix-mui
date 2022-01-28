@@ -1,21 +1,15 @@
 import {
-  FormControl,
-  FormControlLabel,
   FormControlLabelProps,
   FormControlProps,
-  FormHelperText,
-  FormLabel,
   FormLabelProps,
-  Radio,
-  RadioGroup,
   RadioGroupProps,
   RadioProps,
 } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 
-import { useField } from '@euk-labs/formix/hooks';
-
+import { useField } from '@euk-labs/formix';
+import { RadioGroup } from '@euk-labs/componentz';
 export interface IRadioOption {
   name: string;
   label: string;
@@ -43,7 +37,7 @@ const FXRadioGroup = ({
   formControlProps,
   options,
 }: FXRadioGroupProps) => {
-  const { field, helpers } = useField(name);
+  const { field, meta, helpers } = useField(name);
 
   const setFieldValue = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -53,27 +47,23 @@ const FXRadioGroup = ({
   };
 
   return (
-    <FormControl {...formControlProps}>
-      <FormLabel {...formLabelProps}>{label}</FormLabel>
-      <RadioGroup
-        {...radioGroupProps}
-        value={field.value}
-        onChange={setFieldValue}
-      >
-        {options.map((option, index) => (
-          <FormControlLabel
-            {...option.formControlLabelProps}
-            value={option.name}
-            key={`Option-${option.name}-${index}`}
-            control={
-              option.RadioComponent ? <option.RadioComponent /> : <Radio />
-            }
-            label={option.label}
-          />
-        ))}
-      </RadioGroup>
-      <FormHelperText>{helperText}</FormHelperText>
-    </FormControl>
+    <RadioGroup
+      label={label}
+      formControlProps={{
+        ...formControlProps,
+        error: meta.touched && !!meta.error,
+      }}
+      formLabelProps={{
+        ...formLabelProps,
+      }}
+      radioGroupProps={{
+        ...radioGroupProps,
+        value: field.value,
+        onChange: setFieldValue,
+      }}
+      helperText={(meta.touched && meta.error) || helperText}
+      options={options}
+    />
   );
 };
 

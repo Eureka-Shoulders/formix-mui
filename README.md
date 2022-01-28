@@ -1,13 +1,11 @@
-# Componentz
+# Formuix
 
-![npm](https://img.shields.io/npm/v/@euk-labs/componentz)
-![NPM](https://img.shields.io/npm/l/@euk-labs/componentz)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Eureka-Shoulders/componentz/CI)
-![npm](https://img.shields.io/npm/dw/@euk-labs/componentz)
+![npm](https://img.shields.io/npm/v/@euk-labs/formuix)
+![NPM](https://img.shields.io/npm/l/@euk-labs/formuix)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Eureka-Shoulders/formuix/CI)
+![npm](https://img.shields.io/npm/dw/@euk-labs/formuix)
 
-Componentz is a MUI-based UI library that can provide simple and performatic ways to use components.
-
-The goal is not to replace the MUI, but to be an extension
+Formuix is a Formix and MUI library that can provide a simple way of connecting MUI Fields with your Formix form.
 
 ### Dependencies
 
@@ -15,8 +13,6 @@ The goal is not to replace the MUI, but to be an extension
   - You can learn more about MUI [here](mui.com/)
 - MobX is used to generate Stores and Hooks powered by these stores to make a beautiful reactive way to control the data on your interfaces.
   - Meet this wonderful lib [here](mobx.js.org/)
-- Inversify is fundamental for dependency injection strategies
-  - The strategy about this architecture can be found [here](https://github.com/inversify/InversifyJS)
 
 ## Installation
 
@@ -24,20 +20,20 @@ Our dependencies:
 
 ```bash
 # Using npm:
-npm install @mui/material @mui/icons-material @mui/lab @emotion/react @emotion/styled mobx mobx-react-lite
+npm install @mui/material @mui/icons-material @mui/lab @emotion/react @emotion/styled mobx mobx-react-lite @euk-labs/formix
 
 # Using yarn:
-yarn add @mui/material @mui/icons-material @mui/lab @emotion/react @emotion/styled mobx mobx-react-lite
+yarn add @mui/material @mui/icons-material @mui/lab @emotion/react @emotion/styled mobx mobx-react-lite @euk-labs/formix
 ```
 
-Installing Componentz 🤩
+Installing Formuix 🤩
 
 ```bash
 # Using npm:
-npm i @euk-labs/componentz
+npm i @euk-labs/formuix
 
 # Using yarn:
-yarn add @euk-labs/componentz
+yarn add @euk-labs/formuix
 ```
 
 ## Usage
@@ -46,69 +42,32 @@ We've separated the logical part of the component, which has the minimum respons
 
 The complete documentation is under construction, we will soon make it available.
 
-First add a Inversify provider and reflect-metadata at the root of your project
+A simple example of what a component's usage pattern looks like:
 
 _In this example we are using Next but the idea can be used for other React applications_
 
 ```ts
-import 'reflect-metadata';
-import { globalContainer } from '@euk-labs/componentz';
-import { ThemeProvider } from '@mui/material/styles';
-import { CssBaseline } from '@mui/material';
-import { Provider } from 'inversify-react';
-import theme from 'styles/theme';
+import { Formix } from '@euk-labs/formix';
+import { FXPasswordField } from '@euk-labs/formuix';
 
-function MyApp({ Component, pageProps }) {
+function MyForm() {
   return (
-    <Provider container={globalContainer}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-
-        <Component {...pageProps} />
-      </ThemeProvider>
-    </Provider>
+    <Formix
+      initialValues={{
+        email: '',
+        password: '',
+        birthDate: '',
+      }}
+      onSubmit={(values: any) => alert(JSON.stringify(values))}
+    >
+      <FXTextField label="E-mail" name="email" />
+      <FXPasswordField label="Senha" name="password" />
+      <FXDatePicker label="Data nascimento" name="birthDate" />
+    </Formix>
   );
 }
 
-export default MyApp;
-```
-
-A simple example of what a component's usage pattern looks like:
-
-```ts
-import { useUIStore, Breadcrumb } from '@euk-labs/componentz';
-import { Box } from '@mui/material';
-import { useEffect } from 'react';
-
-function About() {
-  // A hook that delivers all the control of a part of the application, in this case the UI
-  const uiStore = useUIStore();
-
-  useEffect(() => {
-    // Controlling the state
-    uiStore.breadcrumb.setPaths([
-      {
-        label: 'Home',
-        link: '/',
-      },
-      {
-        label: 'About',
-        link: '/about',
-      },
-    ]);
-  }, []);
-
-  return (
-    <Box>
-      // Rendering the Breadcrumb component on any DOM level
-      <Breadcrumb />
-      // You can add your JSX code here
-      <Box>...</Box>
-    </Box>
-  );
-}
-
-export default Home;
+export default MyForm;
 ```
 
 ## Contributing

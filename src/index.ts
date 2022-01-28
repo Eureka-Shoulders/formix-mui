@@ -9,3 +9,5 @@ export * from './Switch';
 export * from './TextField';
 export * from './Radio';
 export * from './ArrayField';
+export * from './FileUpload';
+export * from './DateRangePicker';
