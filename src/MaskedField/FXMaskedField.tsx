@@ -8,6 +8,7 @@ import { MaskedField } from '@euk-labs/componentz';
 export type FXMaskedFieldProps = {
   name: string;
   label?: string;
+  disabled?: boolean;
   textFieldProps?: TextFieldProps;
   maskPlaceholder?: string | null;
 } & InputMaskProps;
@@ -40,6 +41,7 @@ const FXMaskedField = ({
       onChange={setValueOnField}
       textFieldProps={{
         ...textFieldProps,
+        disabled: props.disabled,
         error: meta.touched && !!meta.error,
         helperText: meta.touched && meta.error,
       }}
