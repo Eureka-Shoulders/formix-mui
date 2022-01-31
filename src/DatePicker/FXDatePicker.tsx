@@ -38,6 +38,7 @@ const FXDatePicker = ({
       label={label}
       textFieldProps={{
         ...textFieldProps,
+        ...field,
         error: meta.touched && !!meta.error,
         helperText: meta.touched && meta.error,
       }}
