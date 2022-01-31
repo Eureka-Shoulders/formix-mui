@@ -7,7 +7,8 @@
   "keywords": [
     "eureka",
     "react",
-    "formix-mui"
+    "formix",
+    "mui"
   ],
   "repository": {
     "type": "git",
@@ -35,6 +36,8 @@
     "@commitlint/config-conventional": "^15.0.0",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
+    "@euk-labs/componentz": "^0.3.0",
+    "@euk-labs/formix": "^0.2.5",
     "@mui/icons-material": "^5.2.5",
     "@mui/lab": "^5.0.0-alpha.61",
     "@mui/material": "^5.2.5",
@@ -52,6 +55,7 @@
     "@types/jest": "^27.0.3",
     "@types/ramda": "^0.27.61",
     "@types/react": "^17.0.38",
+    "@types/react-input-mask": "^3.0.1",
     "@typescript-eslint/eslint-plugin": "^5.8.0",
     "@typescript-eslint/parser": "^5.8.0",
     "babel-jest": "^27.4.5",
@@ -70,17 +74,14 @@
     "rimraf": "^3.0.2",
     "ts-jest": "^27.1.2",
     "tslib": "^2.3.1",
-    "@types/react-input-mask": "^3.0.1",
-    "@euk-labs/componentz": "link:../componentz/lib",
-    "@euk-labs/formix": "^0.2.5",
     "typescript": "^4.5.4"
   },
   "peerDependencies": {
-    "@euk-labs/formix": ">=0.2.5",
-    "@euk-labs/componentz": ">=0.2.1",
     "@emotion/react": ">=11.6.0",
     "@emotion/styled": ">=11.6.0",
-    "@mui/icons-material": "^5.2.4",
+    "@euk-labs/componentz": ">=0.3.0",
+    "@euk-labs/formix": ">=0.2.5",
+    "@mui/icons-material": ">=5.2.4",
     "@mui/lab": ">=5.0.0-alpha.55",
     "@mui/material": ">=5.1.1",
     "mobx": ">=6.3.7",
@@ -89,7 +90,7 @@
     "react-dom": ">=17"
   },
   "dependencies": {
-    "react-input-mask": "^2.0.4",
-    "react-dropzone": "^11.5.1"
+    "react-dropzone": "^11.5.1",
+    "react-input-mask": "^2.0.4"
   }
 }
