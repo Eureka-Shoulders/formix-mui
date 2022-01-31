@@ -1,9 +1,9 @@
-# Formuix
+# Formix MUI
 
-![npm](https://img.shields.io/npm/v/@euk-labs/formuix)
-![NPM](https://img.shields.io/npm/l/@euk-labs/formuix)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Eureka-Shoulders/formuix/CI)
-![npm](https://img.shields.io/npm/dw/@euk-labs/formuix)
+![npm](https://img.shields.io/npm/v/@euk-labs/formix-mui)
+![NPM](https://img.shields.io/npm/l/@euk-labs/formix-mui)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Eureka-Shoulders/formix-mui/CI)
+![npm](https://img.shields.io/npm/dw/@euk-labs/formix-mui)
 
 Formuix is a Formix and MUI library that can provide a simple way of connecting MUI Fields with your Formix form.
 
@@ -26,14 +26,14 @@ npm install @mui/material @mui/icons-material @mui/lab @emotion/react @emotion/s
 yarn add @mui/material @mui/icons-material @mui/lab @emotion/react @emotion/styled mobx mobx-react-lite @euk-labs/formix
 ```
 
-Installing Formuix 🤩
+Installing formix-mui 🤩
 
 ```bash
 # Using npm:
-npm i @euk-labs/formuix
+npm i @euk-labs/formix-mui
 
 # Using yarn:
-yarn add @euk-labs/formuix
+yarn add @euk-labs/formix-mui
 ```
 
 ## Usage
@@ -48,7 +48,7 @@ _In this example we are using Next but the idea can be used for other React appl
 
 ```ts
 import { Formix } from '@euk-labs/formix';
-import { FXPasswordField } from '@euk-labs/formuix';
+import { FXPasswordField } from '@euk-labs/formix-mui';
 
 function MyForm() {
   return (
