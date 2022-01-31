@@ -1,4 +1,4 @@
-# Formix-mui
+# Formix MUI
 
 ![npm](https://img.shields.io/npm/v/@euk-labs/formix-mui)
 ![NPM](https://img.shields.io/npm/l/@euk-labs/formix-mui)
@@ -20,13 +20,13 @@ Our dependencies:
 
 ```bash
 # Using npm:
-npm install @mui/material @mui/icons-material @mui/lab @emotion/react @emotion/styled mobx mobx-react-lite @euk-labs/formix
+npm install @mui/material @mui/icons-material @mui/lab @emotion/react @emotion/styled mobx mobx-react-lite @euk-labs/formix @euk-labs/componentz
 
 # Using yarn:
-yarn add @mui/material @mui/icons-material @mui/lab @emotion/react @emotion/styled mobx mobx-react-lite @euk-labs/formix
+yarn add @mui/material @mui/icons-material @mui/lab @emotion/react @emotion/styled mobx mobx-react-lite @euk-labs/formix @euk-labs/componentz
 ```
 
-Installing Formix-mui 🤩
+Installing formix-mui 🤩
 
 ```bash
 # Using npm:

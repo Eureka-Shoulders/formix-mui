@@ -16,11 +16,6 @@ type CurrentFile = {
   title: string;
 };
 
-type ComponentRenderProps = {
-  currentFiles?: CurrentFile[];
-  loading?: boolean;
-};
-
 type FeedbackProps = {
   title?: string;
   src?: string;
@@ -28,7 +23,6 @@ type FeedbackProps = {
 };
 
 type FXDropZoneProps = {
-  componentRender?: (props?: ComponentRenderProps) => React.ReactElement;
   accept?: string;
   multiple?: boolean;
   name: string;
@@ -80,7 +74,6 @@ const ImageFeedback = ({
 };
 
 const FXDropZone = ({
-  componentRender,
   accept = 'image/*,video/*',
   multiple,
   name,

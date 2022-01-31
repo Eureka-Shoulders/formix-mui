@@ -5,13 +5,13 @@ import React from 'react';
 import { useField } from '@euk-labs/formix';
 import { Autocomplete } from '@euk-labs/componentz';
 
-export type InternalAutocompleteProps = {
+export type InternalAutocompleteProps<T> = {
   name: string;
   label: string;
   textFieldProps?: TextFieldProps;
   checkbox?: boolean;
-  options: any[];
-  buildNew?: (value: string) => any;
+  options: T[];
+  buildNew?: (value: string) => T;
   debounce?: number;
   onDebouncedInputChange?: (value: string) => void;
 } & Omit<
@@ -19,7 +19,7 @@ export type InternalAutocompleteProps = {
   'renderInput'
 >;
 
-const FXAutocomplete = ({
+function FXAutocomplete<T>({
   name,
   label,
   textFieldProps,
@@ -29,7 +29,7 @@ const FXAutocomplete = ({
   debounce,
   onDebouncedInputChange,
   ...props
-}: InternalAutocompleteProps) => {
+}: InternalAutocompleteProps<T>) {
   const { helpers } = useField(name);
 
   const setFieldValue = (
@@ -54,6 +54,6 @@ const FXAutocomplete = ({
       onDebouncedInputChange={onDebouncedInputChange}
     />
   );
-};
+}
 
 export default observer(FXAutocomplete);
