@@ -30,7 +30,7 @@ function FXAutocomplete<T>({
   onDebouncedInputChange,
   ...props
 }: InternalAutocompleteProps<T>) {
-  const { helpers } = useField(name);
+  const { field, helpers, meta } = useField(name);
 
   const setFieldValue = (
     e: React.SyntheticEvent<Element, Event>,
@@ -41,10 +41,15 @@ function FXAutocomplete<T>({
 
   return (
     <Autocomplete
+      {...field}
       {...props}
       options={options}
       label={label}
       textFieldProps={{
+        ...field,
+        disabled: props.disabled,
+        error: meta.touched && !!meta.error,
+        helperText: meta.touched && meta.error,
         ...textFieldProps,
       }}
       checkbox={checkbox}
@@ -52,6 +57,9 @@ function FXAutocomplete<T>({
       buildNew={buildNew}
       debounce={debounce}
       onDebouncedInputChange={onDebouncedInputChange}
+      isOptionEqualToValue={(option, value) =>
+        JSON.stringify(option) === JSON.stringify(value)
+      }
     />
   );
 }
