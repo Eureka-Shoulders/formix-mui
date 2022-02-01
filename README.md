@@ -48,7 +48,11 @@ _In this example we are using Next but the idea can be used for other React appl
 
 ```ts
 import { Formix } from '@euk-labs/formix';
-import { FXPasswordField } from '@euk-labs/formix-mui';
+import {
+  FXPasswordField,
+  FXTextField,
+  FXDatePicker,
+} from '@euk-labs/formix-mui';
 
 function MyForm() {
   return (
