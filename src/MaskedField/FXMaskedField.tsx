@@ -11,6 +11,7 @@ export type FXMaskedFieldProps = {
   disabled?: boolean;
   textFieldProps?: TextFieldProps;
   maskPlaceholder?: string | null;
+  maskChar?: string;
 } & InputMaskProps;
 
 const FXMaskedField = ({
