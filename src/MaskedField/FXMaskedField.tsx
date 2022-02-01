@@ -8,6 +8,7 @@ import { MaskedField } from '@euk-labs/componentz';
 export type FXMaskedFieldProps = {
   name: string;
   label?: string;
+  disabled?: boolean;
   textFieldProps?: TextFieldProps;
   maskPlaceholder?: string | null;
 } & InputMaskProps;
@@ -20,14 +21,7 @@ const FXMaskedField = ({
   maskPlaceholder,
   ...props
 }: FXMaskedFieldProps) => {
-  const { field, meta, helpers } = useField(name);
-
-  const setValueOnField = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (!!value) {
-      helpers.setValue(value);
-    }
-  };
+  const { field, meta } = useField(name);
 
   return (
     <MaskedField
@@ -37,9 +31,10 @@ const FXMaskedField = ({
       maskPlaceholder={maskPlaceholder}
       label={label}
       value={field.value as string}
-      onChange={setValueOnField}
       textFieldProps={{
         ...textFieldProps,
+        name: field.name,
+        disabled: props.disabled,
         error: meta.touched && !!meta.error,
         helperText: meta.touched && meta.error,
       }}
