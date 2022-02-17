@@ -1,6 +1,6 @@
 export * from './Autocomplete';
 export * from './Checkbox';
-export * from './CurrencyField';
+export * from './NumericField';
 export * from './DatePicker';
 export * from './MaskedField';
 export * from './PasswordField';
