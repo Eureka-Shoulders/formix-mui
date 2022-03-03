@@ -5,12 +5,14 @@ import { Fragment } from 'react';
 
 import { useArrayField } from '@euk-labs/formix';
 
+type ComponentProps = { name: string; label: string } & unknown;
+
 export type FieldsOptions = {
   name: string;
   label: string;
   gridSize: number;
-  component: (props: any) => React.ReactElement;
-  componentProps?: any;
+  component: (props: ComponentProps) => React.ReactElement;
+  componentProps?: ComponentProps;
 };
 
 export type FXArrayFieldProps = {
@@ -18,9 +20,11 @@ export type FXArrayFieldProps = {
   divider?: boolean;
   spacing?: number;
   label?: string;
-  newFieldInitialProps: any;
+  newFieldInitialProps: unknown;
   fields: FieldsOptions[];
-  AddComponent: (props: any) => React.ReactElement;
+  AddComponent: (
+    props: { onClick: () => void } & unknown
+  ) => React.ReactElement;
 };
 
 const FXArrayField = ({
