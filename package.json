@@ -79,7 +79,7 @@
   "peerDependencies": {
     "@emotion/react": ">=11.6.0",
     "@emotion/styled": ">=11.6.0",
-    "@euk-labs/componentz": ">=0.3.0",
+    "@euk-labs/componentz": ">=0.4.0",
     "@euk-labs/formix": ">=0.2.5",
     "@mui/icons-material": ">=5.2.4",
     "@mui/lab": ">=5.0.0-alpha.55",
