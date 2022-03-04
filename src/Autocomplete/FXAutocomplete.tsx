@@ -47,7 +47,6 @@ function FXAutocomplete<T>({
       options={options}
       label={label}
       textFieldProps={{
-        ...field,
         disabled: props.disabled,
         error: meta.touched && !!meta.error,
         helperText: meta.touched && meta.error,
