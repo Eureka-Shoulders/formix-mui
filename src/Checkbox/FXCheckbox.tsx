@@ -16,7 +16,6 @@ export type FXCheckboxProps = {
   formControlLabelProps?: Omit<FormControlLabelProps, 'control' | 'label'>;
   formGroupProps?: FormGroupProps;
   formControlProps?: FormControlProps;
-  useValue?: boolean;
 } & CheckboxProps;
 
 const FXCheckbox = ({
@@ -24,17 +23,16 @@ const FXCheckbox = ({
   label,
   formControlLabelProps,
   formGroupProps,
-  useValue,
   formControlProps,
   ...props
 }: FXCheckboxProps) => {
   const { field, meta, helpers } = useField(name);
 
   const setFieldValue = (
-    event: React.ChangeEvent<HTMLInputElement>,
+    _: React.ChangeEvent<HTMLInputElement>,
     checked: boolean
   ) => {
-    helpers.setValue(useValue ? event.target.value : checked);
+    helpers.setValue(checked);
   };
 
   return (
@@ -49,7 +47,7 @@ const FXCheckbox = ({
       formControlLabelProps={{
         ...formControlLabelProps,
       }}
-      checked={field.value === (useValue ? props.value : true)}
+      checked={field.value === true}
       onChange={setFieldValue}
     />
   );

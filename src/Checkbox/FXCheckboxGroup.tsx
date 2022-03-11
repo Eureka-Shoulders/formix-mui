@@ -31,7 +31,6 @@ export type FXCheckboxGroupProps = {
   formLabelProps?: FormLabelProps;
   formControlProps?: FormControlProps;
   options: ICheckboxOption[];
-  useValue?: boolean;
 };
 
 const FXCheckboxGroup = ({
@@ -40,7 +39,6 @@ const FXCheckboxGroup = ({
   formGroupProps,
   formLabelProps,
   formControlProps,
-  useValue,
   options,
 }: FXCheckboxGroupProps) => {
   const context = useFormixContext();
@@ -48,46 +46,37 @@ const FXCheckboxGroup = ({
     event: React.ChangeEvent<HTMLInputElement>,
     checked: boolean
   ) => {
-    context.setFieldValue(
-      event.target.name,
-      useValue ? event.target.value : checked
-    );
+    context.setFieldValue(event.target.name, checked);
   };
 
   return (
     <FormControl {...formControlProps}>
       <FormLabel {...formLabelProps}>{label}</FormLabel>
       <FormGroup {...formGroupProps}>
-        {options.map((option, index) => {
-          const isChecked =
-            context.getValue(option.name) ===
-            (useValue ? option.checkboxProps?.value : true);
-
-          return (
-            <FormControlLabel
-              {...option.formControlLabelProps}
-              key={`Option-${option.name}-${index}`}
-              control={
-                option.CheckboxComponent ? (
-                  <option.CheckboxComponent
-                    {...option.checkboxProps}
-                    name={option.name}
-                    onChange={setFieldValue}
-                    checked={isChecked}
-                  />
-                ) : (
-                  <Checkbox
-                    {...option.checkboxProps}
-                    name={option.name}
-                    onChange={setFieldValue}
-                    checked={isChecked}
-                  />
-                )
-              }
-              label={option.label}
-            />
-          );
-        })}
+        {options.map((option, index) => (
+          <FormControlLabel
+            {...option.formControlLabelProps}
+            key={`Option-${option.name}-${index}`}
+            control={
+              option.CheckboxComponent ? (
+                <option.CheckboxComponent
+                  {...option.checkboxProps}
+                  name={option.name}
+                  onChange={setFieldValue}
+                  checked={context.getValue(option.name) === true}
+                />
+              ) : (
+                <Checkbox
+                  {...option.checkboxProps}
+                  name={option.name}
+                  onChange={setFieldValue}
+                  checked={context.getValue(option.name) === true}
+                />
+              )
+            }
+            label={option.label}
+          />
+        ))}
       </FormGroup>
       <FormHelperText>{helperText}</FormHelperText>
     </FormControl>
