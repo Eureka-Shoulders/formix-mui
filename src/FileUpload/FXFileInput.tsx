@@ -10,7 +10,6 @@ type PickImageProps = {
   multiple?: boolean;
   name: string;
   disabled?: boolean;
-  processFiles: (files: File[]) => Promise<string | string[]>;
 };
 
 const FXFileInput = ({
