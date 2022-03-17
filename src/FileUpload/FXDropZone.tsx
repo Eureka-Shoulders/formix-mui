@@ -1,75 +1,74 @@
 import {
   Box,
-  CircularProgress,
   FormHelperText,
   Grid,
+  IconButton,
+  Paper,
   Typography,
 } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
 import Dropzone from 'react-dropzone';
-
+import FilePresentIcon from '@mui/icons-material/FilePresent';
 import { useField } from '@euk-labs/formix';
-
-type CurrentFile = {
-  src: string;
-  title: string;
-};
-
-type FeedbackProps = {
-  title?: string;
-  src?: string;
-  loading?: boolean;
-};
+import { Delete } from '@mui/icons-material';
 
 type FXDropZoneProps = {
   accept?: string;
   multiple?: boolean;
   name: string;
   disabled?: boolean;
-  processFiles: (files: File[]) => Promise<CurrentFile[]>;
-  fileMaxSize?: number;
-  feedbackProps?: FeedbackProps;
+  label: string;
 };
 
-const DropzoneUploadingMessage = () => (
-  <Grid container spacing={2} justifyContent="center" alignItems="center">
-    <Grid item xs="auto">
-      <CircularProgress size={25} />
-    </Grid>
-    <Grid item xs="auto">
-      <Typography variant="body1">Enviando o(s) arquivo(s)</Typography>
-    </Grid>
-  </Grid>
-);
+type FileItemProps = {
+  file: File;
+  remove: () => void;
+};
 
-const ImageFeedback = ({
-  title = 'Clique para anexar ou arraste o(s) arquivo(s)',
-  src,
-  loading,
-}: FeedbackProps) => {
+const FileItem = ({ file, remove }: FileItemProps) => {
+  const [isHovering, setIsHovering] = useState(false);
+
   return (
-    <Box padding={4}>
-      <Grid
-        container
-        justifyContent="center"
-        alignItems="center"
-        alignContent="center"
-        sx={{ height: '100%', width: '100%' }}
-      >
-        {src && (
-          <Grid item xs={4}>
-            <img src={src} width="100%" alt="aguarde" />
-          </Grid>
-        )}
-        <Grid item xs={12}>
-          <Typography variant="h6" align="center">
-            {title}
+    <Grid
+      item
+      key={file.name}
+      xs={4}
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
+      position="relative"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <Paper>
+        <Box
+          p={2}
+          position="relative"
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+        >
+          {isHovering && (
+            <IconButton
+              sx={{
+                position: 'absolute',
+                top: 8,
+                right: 8,
+              }}
+              aria-label="delete"
+              onClick={remove}
+            >
+              <Delete />
+            </IconButton>
+          )}
+
+          <FilePresentIcon sx={{ fontSize: 56 }} />
+
+          <Typography align="center" variant="body2">
+            {file.name}
           </Typography>
-        </Grid>
-      </Grid>
-      {loading && <DropzoneUploadingMessage />}
-    </Box>
+        </Box>
+      </Paper>
+    </Grid>
   );
 };
 
@@ -77,37 +76,32 @@ const FXDropZone = ({
   accept = 'image/*,video/*',
   multiple,
   name,
-  processFiles,
-  fileMaxSize = 4000000,
-  feedbackProps,
+  label,
   ...props
 }: FXDropZoneProps) => {
-  const { helpers, meta } = useField(name);
-
+  const { field, helpers, meta } = useField<File[]>(name);
   const [drag, setDrag] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [invalidSize, setInvalidSize] = useState(false);
-
-  const isAllFileSizeValid = (files: File[], maxSize: number) => {
-    const isInvalidSize = files.some((file) => file.size > maxSize);
-
-    return !isInvalidSize;
-  };
 
   const onChange = async (files: File[]) => {
-    setLoading(true);
     if (!files) return;
-    const isValid = fileMaxSize && isAllFileSizeValid(files, fileMaxSize);
-    setInvalidSize(!isValid);
-    if (!isValid) {
-      setLoading(false);
-      return;
+    if (!multiple) {
+      return helpers.setValue(files);
     }
-    const processedFiles = await processFiles(files);
-    if (processedFiles) {
-      helpers.setValue(processedFiles);
-    }
-    setLoading(false);
+
+    const newFiles = [...field.value];
+
+    files.forEach((file) => {
+      if (newFiles.some((f) => f.name === file.name)) return;
+      newFiles.push(file);
+    });
+
+    return helpers.setValue(newFiles);
+  };
+
+  const remove = (index: number) => {
+    const newFiles = [...field.value];
+    newFiles.splice(index, 1);
+    helpers.setValue(newFiles);
   };
 
   return (
@@ -115,7 +109,7 @@ const FXDropZone = ({
       <Dropzone
         {...props}
         accept={accept}
-        onDropAccepted={(files) => onChange(files)}
+        onDropAccepted={onChange}
         multiple={multiple}
         onDrop={() => setDrag(false)}
         onDragEnter={() => setDrag(true)}
@@ -136,22 +130,32 @@ const FXDropZone = ({
             }}
           >
             <input {...getInputProps()} />
-            <Box p={1}>
-              <ImageFeedback loading={loading} {...feedbackProps} />
-            </Box>
-            {invalidSize && (
-              <Box marginLeft={1}>
-                <Typography variant="caption" color="error">
-                  Selecione arquivo
-                  {multiple ? 's' : ''} com até{' '}
-                  {Math.floor(fileMaxSize / 1000000)}
-                  MB
+            <Grid
+              container
+              spacing={2}
+              alignItems="center"
+              height="100%"
+              width="100%"
+              p={4}
+            >
+              <Grid item xs={12}>
+                <Typography variant="h6" align="center">
+                  {label}
                 </Typography>
-              </Box>
-            )}
+              </Grid>
+
+              {field.value.map((file, index) => (
+                <FileItem
+                  key={file.name}
+                  file={file}
+                  remove={() => remove(index)}
+                />
+              ))}
+            </Grid>
           </Box>
         )}
       </Dropzone>
+
       {meta.touched && meta.error && (
         <FormHelperText error>{meta.error}</FormHelperText>
       )}

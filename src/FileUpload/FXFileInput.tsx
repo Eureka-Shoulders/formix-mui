@@ -10,7 +10,6 @@ type PickImageProps = {
   multiple?: boolean;
   name: string;
   disabled?: boolean;
-  processFiles: (files: File[]) => Promise<string | string[]>;
 };
 
 const FXFileInput = ({
@@ -22,18 +21,16 @@ const FXFileInput = ({
   accept = 'image/*,video/*',
   multiple,
   name,
-  processFiles,
   ...props
 }: PickImageProps) => {
   const { meta, helpers } = useField(name);
-  const inputRef: any = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
-    const filesToProcess = files ? Array.from(files) : [];
-    const processedFiles = await processFiles(filesToProcess);
-    if (processedFiles) {
-      helpers.setValue(processedFiles);
-    }
+    const newValue = files ? Array.from(files) : [];
+
+    helpers.setValue(newValue);
     // eslint-disable-next-line no-param-reassign
     event.target.value = '';
   };
@@ -49,7 +46,7 @@ const FXFileInput = ({
         type="file"
         {...props}
       />
-      <label htmlFor={name} onClick={(e) => inputRef.current.click()}>
+      <label htmlFor={name} onClick={() => inputRef.current?.click()}>
         {children}
       </label>
       {meta.touched && meta.error && (

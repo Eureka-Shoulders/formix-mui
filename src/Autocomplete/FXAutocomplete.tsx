@@ -15,6 +15,7 @@ export type InternalAutocompleteProps<T> = {
   debounce?: number;
   onDebouncedInputChange?: (value: string) => void;
 } & Omit<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   AutocompleteProps<any, true | false, true | false, true | false>,
   'renderInput'
 >;
@@ -46,7 +47,6 @@ function FXAutocomplete<T>({
       options={options}
       label={label}
       textFieldProps={{
-        ...field,
         disabled: props.disabled,
         error: meta.touched && !!meta.error,
         helperText: meta.touched && meta.error,
