@@ -8,13 +8,14 @@ type FXDateRangePickerProps = {
 } & Omit<DateRangePickerProps, 'onChange' | 'value'>;
 
 function FXDateRangePicker({ name, label, ...props }: FXDateRangePickerProps) {
-  const { field, helpers } =
+  const { field, meta, helpers } =
     useField<{ start: Date | null; end: Date | null }>(name);
 
   return (
     <DateRangePicker
       {...field}
       {...props}
+      disabled={meta.disabled || props.disabled}
       label={label}
       value={field.value}
       onChange={(newValue) => {

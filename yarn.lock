@@ -1550,10 +1550,10 @@
     react-input-mask "^2.0.4"
     react-number-format "^4.9.1"
 
-"@euk-labs/formix@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@euk-labs/formix/-/formix-0.3.0.tgz#f12c5647ecddd861392ecd9847e3007995c8066d"
-  integrity sha512-0LWoIijkfyFYaFAskXLsRVG2BXc/AmAVFenxOpuDtpM+HVC4VCCpVdhQ3HfEHU2BQS8y1yOKmDdm0g1nQ8HICA==
+"@euk-labs/formix@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@euk-labs/formix/-/formix-0.4.1.tgz#50753d7f43e94e8a56d436f9394543cbfc74ca7e"
+  integrity sha512-kH9to5V3vdIVbJyiqUVEiugDfFk+9r0tu5YHcAnVMTyfsl60njBv65hk6o5a3KPmWVoXquCMUweSWnhjJbQC0Q==
   dependencies:
     yup "^0.32.11"
     zod "^3.11.6"

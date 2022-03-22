@@ -38,6 +38,7 @@ const FXCheckbox = ({
   return (
     <Checkbox
       {...props}
+      disabled={meta.disabled || props.disabled}
       label={label}
       formControlProps={{
         error: meta.touched && !!meta.error,

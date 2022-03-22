@@ -39,6 +39,7 @@ const FXSwitch = ({
   return (
     <Switch
       {...props}
+      disabled={meta.disabled || props.disabled}
       label={label}
       checked={field.value === true}
       onChange={setFieldValue}

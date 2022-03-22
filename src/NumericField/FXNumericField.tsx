@@ -20,6 +20,7 @@ const FXNumericField = ({
     <NumericField
       {...props}
       {...field}
+      disabled={meta.disabled || props.disabled}
       label={label}
       helperText={helperText || (meta.touched && meta.error)}
       error={meta.touched && !!meta.error}

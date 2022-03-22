@@ -14,6 +14,7 @@ function FXPasswordField({ name, label }: FieldProps) {
     <PasswordField
       {...field}
       label={label}
+      disabled={meta.disabled}
       error={meta.touched && !!meta.error}
       helperText={meta.touched && meta.error}
     />
