@@ -1,4 +1,9 @@
-import { AutocompleteProps, TextFieldProps } from '@mui/material';
+import {
+  AutocompleteChangeDetails,
+  AutocompleteChangeReason,
+  AutocompleteProps,
+  TextFieldProps,
+} from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 
@@ -29,15 +34,19 @@ function FXAutocomplete<T>({
   buildNew,
   debounce,
   onDebouncedInputChange,
+  onChange,
   ...props
 }: InternalAutocompleteProps<T>) {
   const { field, helpers, meta } = useField(name);
 
   const setFieldValue = (
-    e: React.SyntheticEvent<Element, Event>,
-    value: unknown
+    event: React.SyntheticEvent<Element, Event>,
+    value: any,
+    reason: AutocompleteChangeReason,
+    details?: AutocompleteChangeDetails<any> | undefined
   ) => {
     helpers.setValue(value);
+    onChange && onChange(event, value, reason, details);
   };
 
   return (
