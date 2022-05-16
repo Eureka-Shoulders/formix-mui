@@ -3,6 +3,7 @@ import { TextFieldProps } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import { useField } from '@euk-labs/formix';
 import { DatePicker } from '@euk-labs/componentz';
+import { parse } from 'date-fns';
 
 export type FXDatePickerProps = {
   name: string;
@@ -17,12 +18,18 @@ const FXDatePicker = ({
   ...props
 }: FXDatePickerProps) => {
   const { field, meta, helpers } = useField(name);
-
   const setFieldValue = (
     date: unknown,
     keyboardInputValue?: string | undefined
   ) => {
-    helpers.setValue(keyboardInputValue || date);
+    if (keyboardInputValue) {
+      const inputedDate = parse(keyboardInputValue, 'dd/MM/yyyy', new Date());
+      if (inputedDate instanceof Date && !isNaN(inputedDate.getTime())) {
+        helpers.setValue(inputedDate)
+      }
+    } else {
+      helpers.setValue(date)
+    }
   };
 
   return (
