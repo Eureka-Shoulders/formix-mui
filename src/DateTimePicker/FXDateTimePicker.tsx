@@ -1,22 +1,22 @@
-import { DatePickerProps } from '@mui/lab';
+import { DateTimePickerProps } from '@mui/lab';
 import { TextFieldProps } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import { useField } from '@euk-labs/formix';
-import { DatePicker } from '@euk-labs/componentz';
+import { DateTimePicker } from '@euk-labs/componentz';
 import { parse } from 'date-fns';
 
-export type FXDatePickerProps = {
+export type FXDateTimePickerProps = {
   name: string;
   label?: string;
   textFieldProps?: TextFieldProps;
-} & Omit<DatePickerProps, 'renderInput' | 'onChange' | 'value'>;
+} & Omit<DateTimePickerProps, 'renderInput' | 'onChange' | 'value'>;
 
-const FXDatePicker = ({
+const FXDateTimePicker = ({
   name,
   label,
   textFieldProps,
   ...props
-}: FXDatePickerProps) => {
+}: FXDateTimePickerProps) => {
   const { field, meta, helpers } = useField(name);
   const setFieldValue = (
     date: unknown,
@@ -33,7 +33,7 @@ const FXDatePicker = ({
   };
 
   return (
-    <DatePicker
+    <DateTimePicker
       {...field}
       {...props}
       value={field.value as string | Date | undefined}
@@ -50,4 +50,4 @@ const FXDatePicker = ({
   );
 };
 
-export default observer(FXDatePicker);
+export default observer(FXDateTimePicker);
