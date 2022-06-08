@@ -46,7 +46,13 @@ const FXFileInput = ({
         type="file"
         {...props}
       />
-      <label htmlFor={name} onClick={() => inputRef.current?.click()}>
+      <label
+        htmlFor={name}
+        onClick={(e) => {
+          e.preventDefault();
+          inputRef.current?.click();
+        }}
+      >
         {children}
       </label>
       {meta.touched && meta.error && (
