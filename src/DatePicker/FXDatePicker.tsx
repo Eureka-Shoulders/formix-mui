@@ -1,4 +1,4 @@
-import { DatePickerProps } from '@mui/lab';
+import { DatePickerProps } from '@mui/x-date-pickers';
 import { TextFieldProps } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import { useField } from '@euk-labs/formix';
@@ -9,7 +9,10 @@ export type FXDatePickerProps = {
   name: string;
   label?: string;
   textFieldProps?: TextFieldProps;
-} & Omit<DatePickerProps, 'renderInput' | 'onChange' | 'value'>;
+} & Omit<
+  DatePickerProps<unknown, unknown>,
+  'renderInput' | 'onChange' | 'value'
+>;
 
 const FXDatePicker = ({
   name,

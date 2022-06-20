@@ -1,17 +1,17 @@
 /* eslint-disable no-undef */
 /* eslint-disable @typescript-eslint/no-var-requires */
-const rimraf = require('rimraf');
-const esbuild = require('esbuild');
-const fs = require('fs');
-const path = require('path');
+import rimraf from 'rimraf';
+import esbuild from 'esbuild';
+import fs from 'node:fs';
+import path from 'node:path';
 
 const distFolder = './lib';
 const sourceFolder = './src';
 const includes = new RegExp('.+\\.(ts|tsx)$');
-const excludes = new RegExp('.+\\.stories\\.js$');
+const excludes = new RegExp('.+\\.(stories|test)\\.(ts|tsx)$');
 
 function getInputs(dir, result = []) {
-  fs.readdirSync(dir).forEach(function (file) {
+  fs.readdirSync(dir).forEach((file) => {
     file = path.join(dir, file);
     const stat = fs.statSync(file);
 
@@ -27,47 +27,29 @@ function getInputs(dir, result = []) {
 
 const inputs = getInputs(sourceFolder);
 
-rimraf(distFolder, (err) => {
+rimraf(distFolder, async (err) => {
   if (err) console.error(err);
 
   console.time('Generating ESM output...');
-  esbuild.buildSync({
+  await esbuild.build({
     entryPoints: [...inputs],
-    format: 'esm',
     outbase: sourceFolder,
-    outdir: distFolder,
     jsx: 'transform',
     jsxFactory: 'React.createElement',
     jsxFragment: 'React.Fragment',
     target: 'es6',
     loader: {
       '.json': 'json',
+      '.tsx': 'tsx',
+      '.ts': 'ts',
     },
-    tsconfig: 'tsconfig.json',
-    minify: true,
+    format: 'esm',
+    // minify: true,
+    outdir: distFolder,
+    treeShaking: true,
     inject: ['./scripts/react-shim.js'],
-    splitting: true,
   });
   console.timeEnd('Generating ESM output...');
-
-  console.time('Generating CJS output...');
-  esbuild.buildSync({
-    entryPoints: [...inputs],
-    format: 'cjs',
-    outbase: sourceFolder,
-    outdir: distFolder + '/cjs',
-    jsx: 'transform',
-    jsxFactory: 'React.createElement',
-    jsxFragment: 'React.Fragment',
-    target: 'es6',
-    loader: {
-      '.json': 'json',
-    },
-    tsconfig: 'tsconfig.json',
-    minify: true,
-    inject: ['./scripts/react-shim.js'],
-  });
-  console.timeEnd('Generating CJS output...');
 
   fs.copyFileSync(
     path.join('./package.json'),

@@ -1,6 +1,5 @@
 import { TextFieldProps } from '@mui/material';
 import { observer } from 'mobx-react-lite';
-import { Props as InputMaskProps } from 'react-input-mask';
 
 import { useField } from '@euk-labs/formix';
 import { MaskedField } from '@euk-labs/componentz';
@@ -12,7 +11,8 @@ export type FXMaskedFieldProps = {
   textFieldProps?: TextFieldProps;
   maskPlaceholder?: string | null;
   maskChar?: string;
-} & InputMaskProps;
+  mask: string | (string | RegExp)[];
+};
 
 const FXMaskedField = ({
   name,
