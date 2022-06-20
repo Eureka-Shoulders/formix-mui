@@ -22,5 +22,5 @@
     "declarationDir": "./lib"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["node_modules", "dist", "src/**/*.test.*", "src/**/*.stories.*"]
 }
