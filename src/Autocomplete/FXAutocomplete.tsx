@@ -41,9 +41,9 @@ function FXAutocomplete<T>({
 
   const setFieldValue = (
     event: React.SyntheticEvent<Element, Event>,
-    value: unknown,
+    value: any,
     reason: AutocompleteChangeReason,
-    details?: AutocompleteChangeDetails<unknown> | undefined
+    details?: AutocompleteChangeDetails<any> | undefined
   ) => {
     helpers.setValue(value);
     onChange && onChange(event, value, reason, details);
@@ -67,7 +67,7 @@ function FXAutocomplete<T>({
       buildNew={buildNew}
       debounce={debounce}
       onDebouncedInputChange={onDebouncedInputChange}
-      isOptionEqualToValue={(option: unknown, value: unknown) =>
+      isOptionEqualToValue={(option, value) =>
         JSON.stringify(option) === JSON.stringify(value)
       }
     />
