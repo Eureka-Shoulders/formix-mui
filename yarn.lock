@@ -1538,14 +1538,13 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@euk-labs/componentz@^0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@euk-labs/componentz/-/componentz-0.5.0.tgz#0f18f07cb52613a51ad32831b4edf4ddc05971b2"
-  integrity sha512-yU+nXLqd47t2igDYehPZhwbv4/7jzVEZHKQpZBGYDwBqP2vRh6IwWshnIHDePyv6Bl7CbiPsfp2G8u5Ua2Ntcw==
+"@euk-labs/componentz@^0.5.12":
+  version "0.5.12"
+  resolved "https://registry.yarnpkg.com/@euk-labs/componentz/-/componentz-0.5.12.tgz#279965e0f606a315c8670d9271237f3d25c53284"
+  integrity sha512-xrnWd3IdAiYGN8TqaH3VrC/4F9RlHBk6rkL2FDnEQvDMn/uJbPIscOQnfwTeOJNfZ204pX0sC5AorMc3dOqiKg==
   dependencies:
     date-fns "^2.28.0"
     inversify ">=6.0.1"
-    inversify-react ">=1.0.1"
     ramda ">=0.27.1"
     react-input-mask "^2.0.4"
     react-number-format "^4.9.1"
@@ -7349,11 +7348,6 @@ invariant@^2.2.4:
   integrity sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==
   dependencies:
     loose-envify "^1.0.0"
-
-inversify-react@>=1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/inversify-react/-/inversify-react-1.0.1.tgz#ff980144ee9ae1b1534e08fbe8ce5af447f47300"
-  integrity sha512-y6kh2pL3Lpqy94yhPE9amBs2GsD0eM+IziHiKMi2z6ZsR6ORk0rhDdnHDZ6AMDpEtQzpEJEg4+9zp5FWKukkxA==
 
 inversify@>=6.0.1:
   version "6.0.1"

@@ -1,7 +1,7 @@
 import {
   AutocompleteChangeDetails,
   AutocompleteChangeReason,
-  AutocompleteProps,
+  AutocompleteProps as MuiAutocompleteProps,
   TextFieldProps,
 } from '@mui/material';
 import { observer } from 'mobx-react-lite';
@@ -10,7 +10,7 @@ import React from 'react';
 import { useField } from '@euk-labs/formix';
 import { Autocomplete } from '@euk-labs/componentz';
 
-export type InternalAutocompleteProps<T> = {
+export type AutocompleteProps<T> = {
   name: string;
   label: string;
   textFieldProps?: TextFieldProps;
@@ -21,7 +21,7 @@ export type InternalAutocompleteProps<T> = {
   onDebouncedInputChange?: (value: string) => void;
 } & Omit<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  AutocompleteProps<any, true | false, true | false, true | false>,
+  MuiAutocompleteProps<any, true | false, true | false, true | false>,
   'renderInput'
 >;
 
@@ -36,7 +36,7 @@ function FXAutocomplete<T>({
   onDebouncedInputChange,
   onChange,
   ...props
-}: InternalAutocompleteProps<T>) {
+}: AutocompleteProps<T>) {
   const { field, helpers, meta } = useField(name);
 
   const setFieldValue = (

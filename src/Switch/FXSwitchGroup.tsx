@@ -16,7 +16,7 @@ import React from 'react';
 
 import { useFormixContext } from '@euk-labs/formix';
 
-export interface ISwitchOption {
+export interface SwitchOption {
   name: string;
   label: string;
   switchProps?: SwitchProps;
@@ -30,7 +30,7 @@ export type FXSwitchGroupProps = {
   formGroupProps?: FormGroupProps;
   formLabelProps?: FormLabelProps;
   formControlProps?: FormControlProps;
-  options: ISwitchOption[];
+  options: SwitchOption[];
 };
 
 const FXSwitchGroup = ({

@@ -1,9 +1,18 @@
 {
   "name": "@euk-labs/formix-mui",
-  "version": "0.5.3",
-  "main": "./cjs/index.js",
-  "module": "./index.js",
-  "types": "./index.d.ts",
+  "version": "0.5.4",
+  "types": "./lib/types/index.d.ts",
+  "main": "./lib/cjs/index.js",
+  "exports": {
+    "import": "./lib/esm/index.js",
+    "require": "./lib/cjs/index.js",
+    "default": "./lib/esm/index.js"
+  },
+  "files": [
+    "lib",
+    "README.md",
+    "LICENSE"
+  ],
   "keywords": [
     "eureka",
     "react",
@@ -20,8 +29,8 @@
   "license": "MIT",
   "sideEffects": false,
   "scripts": {
-    "build": "node ./scripts/build.js && tsc --project ./tsconfig.json --emitDeclarationOnly",
-    "lint": "tsc --project ./tsconfig.json --noEmit && eslint src -c .eslintrc.json --ext tsx,ts",
+    "build": "rimraf lib && tsc && tsc --project ./tsconfig.esm.json",
+    "lint": "tsc --noEmit && eslint src -c .eslintrc.json --ext tsx,ts",
     "test": "jest",
     "test:watch": "jest --watch",
     "storybook": "start-storybook -p 6006",
@@ -36,7 +45,7 @@
     "@commitlint/config-conventional": "^16.2.1",
     "@emotion/react": "^11.8.1",
     "@emotion/styled": "^11.8.1",
-    "@euk-labs/componentz": "^0.5.10",
+    "@euk-labs/componentz": "^0.5.12",
     "@euk-labs/formix": "^0.4.3",
     "@mui/icons-material": "^5.8.0",
     "@mui/lab": "^5.0.0-alpha.83",
