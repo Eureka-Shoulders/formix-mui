@@ -41,9 +41,9 @@ function FXAutocomplete<T>({
 
   const setFieldValue = (
     event: React.SyntheticEvent<Element, Event>,
-    value: any,
+    value: unknown,
     reason: AutocompleteChangeReason,
-    details?: AutocompleteChangeDetails<any> | undefined
+    details?: AutocompleteChangeDetails<unknown> | undefined
   ) => {
     helpers.setValue(value);
     onChange && onChange(event, value, reason, details);
