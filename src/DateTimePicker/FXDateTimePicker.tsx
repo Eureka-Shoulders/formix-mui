@@ -37,15 +37,15 @@ const FXDateTimePicker = ({
 
   return (
     <DateTimePicker
-      {...field}
       {...props}
       value={field.value as string | Date | undefined}
       onChange={setFieldValue}
       label={label}
+      disabled={meta.disabled || props.disabled}
       textFieldProps={{
         ...textFieldProps,
-        ...field,
-        disabled: meta.disabled || props.disabled,
+        name: field.name,
+        onBlur: field.onBlur,
         error: meta.touched && !!meta.error,
         helperText: meta.touched && meta.error,
       }}
