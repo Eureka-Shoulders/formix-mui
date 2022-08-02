@@ -22,15 +22,13 @@ jobs:
       - name: Lint
         run: yarn lint
 
-#       - name: Test
-#         run: yarn test --ci --coverage --maxWorkers=2
+      #       - name: Test
+      #         run: yarn test --ci --coverage --maxWorkers=2
 
       - name: Generate build
         run: yarn build
 
       - name: Publish lib to NPM
-        run: |
-          cd lib
-          npm publish --access public
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
