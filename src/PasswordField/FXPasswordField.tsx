@@ -8,15 +8,15 @@ type FieldProps = {
   label?: string;
 } & TextFieldProps;
 
-function FXPasswordField({ name, label, ...rest }: FieldProps) {
+function FXPasswordField({ name, label, ...props }: FieldProps) {
   const { field, meta } = useField(name);
 
   return (
     <PasswordField
       {...field}
-      {...rest}
+      {...props}
       label={label}
-      disabled={meta.disabled || rest.disabled}
+      disabled={meta.disabled || props.disabled}
       error={meta.touched && !!meta.error}
       helperText={meta.touched && meta.error}
     />
